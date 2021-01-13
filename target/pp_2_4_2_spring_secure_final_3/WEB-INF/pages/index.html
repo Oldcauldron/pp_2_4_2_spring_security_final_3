@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+</head>
+<body>
+<h2>INDEX123</h2>
+
+<div th:each="role : ${roles}">
+
+    <div th:switch="${role}">
+        <a th:case="'ROLE_ADMIN'" href="/admin">ADMIN</a><br/>
+        <p th:case="'ROLE_USER'">
+            <a href="/user">USER</a><br/>
+            <a href="/logout">LOGOUT</a><br/>
+        </p>
+    </div>
+
+</div>
+
+<a th:if="!${#request.userPrincipal}" href="/login">LOGIN</a>
+<a th:if="!${#request.userPrincipal}" href="/logincustom">LOGIN-CUSTOM</a>
+
+
+<div class="row" th:if="${#request.isUserInRole('ADMIN')}">
+    <p>This will only be displayed if authenticated user has role 'ADMIN'</p>
+</div>
+<div class="row" th:if="${#request.isUserInRole('ROLE_ADMIN')}">
+    <p>This will only be displayed if authenticated user has role 'ROLE_ADMIN'</p>
+</div>
+<div class="row" th:if="${#request.isUserInRole('ROLE_USER')}">
+    <p>This will only be displayed if authenticated user has role 'ROLE_USER'</p>
+</div>
+
+
+
+</body>
+</html>

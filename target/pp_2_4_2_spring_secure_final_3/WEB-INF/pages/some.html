@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Some</title>
+</head>
+<body>
+roles = AuthorityUtils.authorityListToSet(authentication.getAuthorities());
+    if (roles.contains("ROLE_ADMIN")) {
+    httpServletResponse.sendRedirect("/admin");
+    } else if (roles.contains("ROLE_USER")) {
+    httpServletResponse.sendRedirect("/user");
+    } else {
+    httpServletResponse.sendRedirect("/some");
+    }
+</body>
+</html>
