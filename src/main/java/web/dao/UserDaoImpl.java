@@ -34,7 +34,9 @@ public class UserDaoImpl implements UserDao {
     @Override
     public User getUserByName(String name) {
         String query = "select u from User u where username = :name";
-        User user = entityManager.createQuery(query, User.class).setParameter("name", name).getSingleResult();
+        User user = entityManager.createQuery(query, User.class)
+                                 .setParameter("name", name)
+                                 .getSingleResult();
         return user;
     }
 
@@ -43,5 +45,10 @@ public class UserDaoImpl implements UserDao {
         String query = "select u from User u";
         TypedQuery<User> tq = entityManager.createQuery(query, User.class);
         return tq.getResultList();
+    }
+
+    @Override
+    public void addUser(User user) {
+        entityManager.persist(user);
     }
 }

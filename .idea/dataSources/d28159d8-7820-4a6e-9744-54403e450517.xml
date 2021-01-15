@@ -42,7 +42,7 @@
     </schema>
     <schema id="13" parent="1" name="userbase">
       <Current>1</Current>
-      <Collation>utf8mb4_0900_ai_ci</Collation>
+      <Collation>utf8_general_ci</Collation>
     </schema>
     <schema id="14" parent="1" name="world">
       <Collation>utf8mb4_0900_ai_ci</Collation>
@@ -934,16 +934,12 @@ SELECT|sys.sys_config
       <ObjectGrants>SELECT,INSERT,UPDATE,DELETE,CREATE,DROP,RELOAD,SHUTDOWN,PROCESS,FILE,REFERENCES,INDEX,ALTER,SHOW DATABASES,SUPER,CREATE TEMPORARY TABLES,LOCK TABLES,EXECUTE,REPLICATION SLAVE,REPLICATION CLIENT,CREATE VIEW,SHOW VIEW,CREATE ROUTINE,ALTER ROUTINE,CREATE USER,EVENT,TRIGGER,CREATE TABLESPACE,CREATE ROLE,DROP ROLE!
 </ObjectGrants>
     </user>
-    <table id="292" parent="13" name="hibernate_sequence"/>
-    <table id="293" parent="13" name="roles">
-      <Collation>utf8_general_ci</Collation>
+    <table id="292" parent="13" name="hibernate_sequence">
+      <Collation>utf8mb4_0900_ai_ci</Collation>
     </table>
-    <table id="294" parent="13" name="users">
-      <Collation>utf8_general_ci</Collation>
-    </table>
-    <table id="295" parent="13" name="users_roles">
-      <Collation>utf8_general_ci</Collation>
-    </table>
+    <table id="293" parent="13" name="roles"/>
+    <table id="294" parent="13" name="users"/>
+    <table id="295" parent="13" name="users_roles"/>
     <column id="296" parent="292" name="next_val">
       <Position>1</Position>
       <DataType>bigint|0s</DataType>
@@ -958,100 +954,90 @@ SELECT|sys.sys_config
       <Position>2</Position>
       <DataType>varchar(250)|0s</DataType>
     </column>
-    <column id="299" parent="293" name="counter">
-      <Position>3</Position>
-      <DataType>bigint|0s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <index id="300" parent="293" name="id">
+    <index id="299" parent="293" name="id">
       <ColNames>id</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <index id="301" parent="293" name="role">
+    <index id="300" parent="293" name="role">
       <ColNames>role</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="302" parent="293" name="PRIMARY">
+    <key id="301" parent="293" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="303" parent="293" name="id">
+    <key id="302" parent="293" name="id">
       <ColNames>id</ColNames>
       <UnderlyingIndexName>id</UnderlyingIndexName>
     </key>
-    <key id="304" parent="293" name="role">
+    <key id="303" parent="293" name="role">
       <ColNames>role</ColNames>
       <UnderlyingIndexName>role</UnderlyingIndexName>
     </key>
-    <column id="305" parent="294" name="id">
+    <column id="304" parent="294" name="id">
       <Position>1</Position>
       <DataType>bigint unsigned|0s</DataType>
       <NotNull>1</NotNull>
       <SequenceIdentity>null</SequenceIdentity>
     </column>
-    <column id="306" parent="294" name="username">
+    <column id="305" parent="294" name="username">
       <Position>2</Position>
       <DataType>varchar(250)|0s</DataType>
     </column>
-    <column id="307" parent="294" name="password">
+    <column id="306" parent="294" name="password">
       <Position>3</Position>
       <DataType>varchar(250)|0s</DataType>
     </column>
-    <column id="308" parent="294" name="count">
-      <Position>4</Position>
-      <DataType>bigint|0s</DataType>
-      <NotNull>1</NotNull>
-    </column>
-    <index id="309" parent="294" name="id">
+    <index id="307" parent="294" name="id">
       <ColNames>id</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <index id="310" parent="294" name="username">
+    <index id="308" parent="294" name="username">
       <ColNames>username</ColNames>
       <Unique>1</Unique>
       <Type>btree</Type>
     </index>
-    <key id="311" parent="294" name="PRIMARY">
+    <key id="309" parent="294" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>id</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="312" parent="294" name="id">
+    <key id="310" parent="294" name="id">
       <ColNames>id</ColNames>
       <UnderlyingIndexName>id</UnderlyingIndexName>
     </key>
-    <key id="313" parent="294" name="username">
+    <key id="311" parent="294" name="username">
       <ColNames>username</ColNames>
       <UnderlyingIndexName>username</UnderlyingIndexName>
     </key>
-    <column id="314" parent="295" name="user_id">
+    <column id="312" parent="295" name="user_id">
       <Position>1</Position>
       <DataType>bigint unsigned|0s</DataType>
     </column>
-    <column id="315" parent="295" name="role_id">
+    <column id="313" parent="295" name="role_id">
       <Position>2</Position>
       <DataType>bigint unsigned|0s</DataType>
     </column>
-    <index id="316" parent="295" name="hasuser">
+    <index id="314" parent="295" name="hasuser">
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="317" parent="295" name="hasrole">
+    <index id="315" parent="295" name="hasrole">
       <ColNames>role_id</ColNames>
       <Type>btree</Type>
     </index>
-    <foreign-key id="318" parent="295" name="hasuser">
+    <foreign-key id="316" parent="295" name="hasuser">
       <ColNames>user_id</ColNames>
       <RefTableName>users</RefTableName>
       <RefColNames>id</RefColNames>
       <OnUpdate>cascade</OnUpdate>
       <OnDelete>cascade</OnDelete>
     </foreign-key>
-    <foreign-key id="319" parent="295" name="hasrole">
+    <foreign-key id="317" parent="295" name="hasrole">
       <ColNames>role_id</ColNames>
       <RefTableName>roles</RefTableName>
       <RefColNames>id</RefColNames>

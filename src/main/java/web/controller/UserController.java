@@ -1,8 +1,6 @@
 package web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,13 +8,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import web.model.Role;
 import web.model.User;
 import web.service.UserService;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -45,8 +42,18 @@ public class UserController {
         Set<String> roles = authentication.getAuthorities().stream()
                 .map(GrantedAuthority::getAuthority).collect(Collectors.toSet());
 
+        String username;
+        Object principal = authentication.getPrincipal();
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+        model.addAttribute("username", username);
         model.addAttribute("roles", roles);
         return "index";
+
+
 
         /*        // SOME METHODS TO AUTH FILTER
         SecurityContext securityContext = SecurityContextHolder.getContext();
@@ -71,14 +78,24 @@ public class UserController {
         return "logincust";
     }
 
-//    @PostMapping("/loginCustom")
-//    public String testLogin(@RequestParam(value = "j_username") String j_username,
-//                            @RequestParam(value = "j_password") String j_password,
-//                            Model model) {
-//        UserDetails user = userDetailsService.loadUserByUsername(j_username);
-//        model.addAttribute(user);
-//        return "index";
-//    }
+    @GetMapping("/registration")
+    public String getRegisterForm(@ModelAttribute("user") User user) {
+        return "regForm";
+    }
+
+    @PostMapping("/registration")
+    public String regUser(@ModelAttribute("user") User user,
+                            Model model) {
+        userService.addUser(user);
+//        UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
+//        Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
+//        authentication.setAuthenticated(true);
+//        SecurityContextHolder.getContext().setAuthentication(authentication);
+//        return String.format("redirect:/user/%s", user.getUsername());
+        return "redirect:/logincustom";
+    }
+
+    // !!! REGISTRATION ERROR
 
     @GetMapping(value = "/user")
     public String getUserPage() {
@@ -89,7 +106,6 @@ public class UserController {
     public String getPersonal(@PathVariable("name") String name, Model model) {
         User user = (User) userDetailsService.loadUserByUsername(name);
         model.addAttribute("user", user);
-        model.addAttribute("num", 4);
         return "user";
     }
 

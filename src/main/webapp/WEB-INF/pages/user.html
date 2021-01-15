@@ -5,22 +5,23 @@
     <title>User</title>
 </head>
 <body>
-USER<br/>
-<a href="/">INDEX</a>
+
 <div th:if = "${user}">
-    <p th:text="${user.getId()} + ', Login - ' + ${user.getName()} + ', Password - ' + ${user.getPassword()}">user</p><br/>
+    <h2 th:text="${user.getUsername()}">username</h2><br/><br/>
+    <p th:text="${user.getId()} + ', Login - ' + ${user.getUsername()} + ', Password - ' + ${user.getPassword()}">user</p><br/>
     <br/>
     <div th:each="role : ${user.getAuthorities()}">
         <p th:text="${role.getAuthority()}">role</p>
     </div>
-    <br/>
-    <p th:text="${num}">num</p>
-    <br/>
-    <div th:each="role : ${user.getRoles()}">
-        <p th:text="${role.getRole()}">role</p>
-    </div>
+<!--    <br/>-->
+<!--    <div th:each="role : ${user.getRoles()}">-->
+<!--        <p th:text="${role.getRole()}">role</p>-->
+<!--    </div>-->
 <!--    + ', getRoles - ' + ${#arrays.toArray(user.getRoles())}-->
 <!--    + ', getRoles - ' + ${#arrays.toStringArray(user.getRoles())}-->
 </div>
+<br/>
+<br/>
+<a href="/">GO TO INDEX</a>
 </body>
 </html>
