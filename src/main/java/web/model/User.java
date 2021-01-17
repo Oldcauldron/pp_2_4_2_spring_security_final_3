@@ -16,8 +16,6 @@ import java.util.Set;
 @Table(name = "users")
 public class User implements UserDetails {
 
-//    public static boolean admin = false;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -26,6 +24,7 @@ public class User implements UserDetails {
     @NotEmpty(message = "Name should not be empty!")
     private String username; // уникальное значение
 
+    @Column(name = "password")
     @NotEmpty(message = "Password should not be empty!")
     private String password;
 
@@ -51,10 +50,6 @@ public class User implements UserDetails {
     public void setId(Long id) {
         this.id = id;
     }
-
-//    public String getName() {
-//        return username;
-//    }
 
 
     @Override

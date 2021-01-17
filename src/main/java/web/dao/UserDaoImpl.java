@@ -5,6 +5,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 import web.model.Role;
 import web.model.User;
+import web.service.SecurityService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -77,18 +78,17 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void addUser(User user) {
+        String passCrypt = cryptPass(user.getPassword());
+        user.setPassword(passCrypt);
         entityManager.persist(user);
     }
 
     @Override
     public void updateUser(User user) {
+        String passCrypt = cryptPass(user.getPassword());
+        user.setPassword(passCrypt);
         entityManager.merge(user);
     }
-
-//    @Override
-//    public void deleteUser(User user) {
-//        entityManager.remove(user);
-//    }
 
     @Override
     public void deleteUserById(long id) {

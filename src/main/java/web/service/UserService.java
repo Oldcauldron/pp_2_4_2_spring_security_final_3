@@ -11,8 +11,6 @@ public interface UserService {
     boolean isExistingUser(User user);
     boolean isExistingUserByName(String name);
     User showById(long id);
-    String cryptPass(String pass);
-//    void deleteUser(User user);
     void deleteUserById(long id);
 
 

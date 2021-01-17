@@ -13,6 +13,5 @@ public interface UserDao {
     boolean isExistingUser(User user);
     boolean isExistingUserByName(String name);
     String cryptPass(String pass);
-//    void deleteUser(User user);
     void deleteUserById(long id);
 }

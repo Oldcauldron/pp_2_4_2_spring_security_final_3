@@ -19,10 +19,7 @@ public class SecurityServiceImpl implements SecurityService {
     private AuthenticationManager authenticationManager;
     private AuthenticationManagerBuilder authenticationManagerBuilder;
     private UserDetailsService userDetailsService;
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-
-//    @Autowired
-//    private UserDao userDao;
+//    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     public void setAuthenticationManager(AuthenticationManager authenticationManager) {
@@ -36,10 +33,10 @@ public class SecurityServiceImpl implements SecurityService {
     public void setUserDetailsService(UserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
     }
-    @Autowired
-    public void setbCryptPasswordEncoder(BCryptPasswordEncoder bCryptPasswordEncoder) {
-        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-    }
+//    @Autowired
+//    public void setbCryptPasswordEncoder(BCryptPasswordEncoder bCryptPasswordEncoder) {
+//        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+//    }
 
     @Override
     public void autoLogin(User user) {
@@ -54,14 +51,9 @@ public class SecurityServiceImpl implements SecurityService {
 //        }
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(user.getUsername());
-//        UserDetails userDetails = userDao.getUserByName(user.getUsername());
         Authentication authentication = new UsernamePasswordAuthenticationToken(userDetails, userDetails.getPassword(), userDetails.getAuthorities());
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
     }
 
-//    @Override
-//    public String getEncodePass(String password) {
-//        return bCryptPasswordEncoder.encode(password);
-//    }
 }

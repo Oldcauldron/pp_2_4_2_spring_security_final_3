@@ -12,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 import web.model.PreparedRoles;
 import web.model.Role;
@@ -22,9 +21,6 @@ import web.service.SecurityService;
 import web.service.UserService;
 
 import javax.validation.Valid;
-import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -225,7 +221,6 @@ public class UserController {
 
     @DeleteMapping("/delete/user/{id}")
     public String deleteUser(@PathVariable("id") long id, Model model) {
-//        User user = userService.showById(id);
         userService.deleteUserById(id);
         return "redirect:/admin";
     }
