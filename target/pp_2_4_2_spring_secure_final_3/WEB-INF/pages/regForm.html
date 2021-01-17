@@ -6,12 +6,20 @@
 </head>
 <body>
 <form th:method="POST" th:action="@{/registration}" th:object="${user}">
+
     <label for="name">Input login: </label>
     <input type="text" th:field="*{username}" id="name"/><br/>
+    <div style="color: red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Error</div><br/>
+    <div style="color: red" th:if="${errorExist}" th:text="${errorExist}">Error</div><br/>
 
     <label for="pass">Enter password</label>
-    <input type="text" th:field="*{password}" id="pass"/></br>
+    <input type="text" th:field="*{password}" id="pass" value="pass"/></br>
+    <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Error</div>
+
     <input type="submit" value="register it!"/>
 </form>
+<!--<div th:each="error : ${#fields.allErrors()}">-->
+<!--    <p th:text="error">error</p>-->
+<!--</div>-->
 </body>
 </html>

@@ -22,6 +22,10 @@ public class Role implements GrantedAuthority {
         this.role = role;
     }
 
+    public Role(String role) {
+        this.role = role;
+    }
+
     public Role() {
     }
 

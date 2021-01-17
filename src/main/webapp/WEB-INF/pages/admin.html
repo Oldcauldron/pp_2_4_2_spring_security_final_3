@@ -3,12 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Admin</title>
+    <style>
+        body { font-size: 16px; }
+        h1 { font-size: 22pt; }
+        p {  font-size: 1.5em; }
+        a {  font-size: 20px; }
+    </style>
 </head>
 <body>
 <h3>ADMIN</h3>
-<a href="/">INDEX</a><br/>
+<a href="/">GO TO INDEX</a><br/><br/>
 <div th:each="user : ${listUsers}">
     <a th:href="@{/user/{name}(name = ${user.getUsername()})}" th:text="${user.getUsername()}">user</a><br/>
+    <a th:href="@{edit/user/{id}(id = ${user.getId()})}">Edit</a>
+    <br/><br/>
 </div>
+<br/><br/><div th:insert="basement::logout"></div>
 </body>
 </html>

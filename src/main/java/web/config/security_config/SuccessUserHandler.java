@@ -28,11 +28,5 @@ public class SuccessUserHandler implements AuthenticationSuccessHandler {
         } else {
             httpServletResponse.sendRedirect("/some");
         }
-//        r = roles;
     }
-
-//    public static Set<String> r;
-//    public static Set<String> getRoles() {
-//        return r;
-//    }
 }

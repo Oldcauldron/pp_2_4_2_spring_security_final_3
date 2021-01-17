@@ -1,5 +1,7 @@
 package web.dao;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 import web.model.Role;
 import web.model.User;
@@ -14,6 +16,12 @@ public class UserDaoImpl implements UserDao {
 
     @PersistenceContext
     EntityManager entityManager;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    public void setbCryptPasswordEncoder(BCryptPasswordEncoder bCryptPasswordEncoder) {
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+    }
 
 //    Role roleAdmin = new Role(1L, "ROLE_ADMIN");
 //    Role roleUser = new Role(2L, "ROLE_USER");
@@ -33,11 +41,31 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUserByName(String name) {
-        String query = "select u from User u where username = :name";
-        User user = entityManager.createQuery(query, User.class)
+        String query = "select u from User u where u.username = :name";
+        return entityManager.createQuery(query, User.class)
                                  .setParameter("name", name)
                                  .getSingleResult();
-        return user;
+    }
+
+    @Override
+    public User showById(long id) {
+        String query = "select u from User u where u.id = :id";
+        return entityManager.createQuery(query, User.class).setParameter("id", id).getSingleResult();
+    }
+
+    @Override
+    public boolean isExistingUser(User user) {
+        return isExistingUserByName(user.getUsername());
+    }
+
+    @Override
+    public boolean isExistingUserByName(String name) {
+        try {
+            getUserByName(name);
+            return true;
+        } catch (javax.persistence.NoResultException e) {
+            return false;
+        }
     }
 
     @Override
@@ -50,5 +78,28 @@ public class UserDaoImpl implements UserDao {
     @Override
     public void addUser(User user) {
         entityManager.persist(user);
+    }
+
+    @Override
+    public void updateUser(User user) {
+        entityManager.merge(user);
+    }
+
+//    @Override
+//    public void deleteUser(User user) {
+//        entityManager.remove(user);
+//    }
+
+    @Override
+    public void deleteUserById(long id) {
+        User user = entityManager.find(User.class, id);
+        entityManager.remove(user);
+        entityManager.flush();
+        entityManager.clear();
+    }
+
+    @Override
+    public String cryptPass(String pass) {
+        return bCryptPasswordEncoder.encode(pass);
     }
 }

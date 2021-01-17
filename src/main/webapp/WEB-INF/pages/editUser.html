@@ -1,0 +1,69 @@
+
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>edit user</title>
+</head>
+<body>
+
+<form th:method="PATCH" th:action="@{/edit/user/{id}(id = ${user.getId()})}" th:object="${preparedRoles}" >
+
+    <label for="username">Edit login: </label>
+    <input type="text" th:field="*{username}" id="username" th:value="*{username}"/><br/>
+<!--    <div style="color: red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Error</div><br/>-->
+<!--    <div style="color: red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Error</div><br/>-->
+    <div style="color: red" th:if="${errorExist}" th:text="${errorExist}">Error</div><br/>
+    <div style="color: red" th:if="${errorNameEmpty}" th:text="${errorNameEmpty}">Error</div><br/>
+
+    <label for="password">Edit password: </label>
+    <input type="password" th:field="*{password}" id="password" value="pass"><br/><br/>
+<!--    <div style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Error</div>-->
+    <div style="color: red" th:if="${errorPassEmpty}" th:text="${errorPassEmpty}">Error</div><br/>
+
+    <div th:each="roll : *{getAllRoles()}">
+        <input type="checkbox" th:field="*{actualRoles}" th:value="${roll}" /><label th:text="${roll}">example</label>
+    </div>
+    <input type="submit" value="Go" />
+</form>
+<br/><br/>
+<form th:method="DELETE" th:action="@{/delete/user/{id}(id = ${user.getId()})}"  th:object="${user}">
+    <input th:type="submit" value="delete it!">
+</form>
+
+
+<!--<form th:method="PATCH" th:action="@{/edit/roles/{id}(id = ${user.getId()})}" th:object="${preparedRoles}" >-->
+<!--    <div th:each="role : ${allRoles}">-->
+<!--        <input type="checkbox" th:field="*{actualRoles}" th:value="${role}" /><label th:text="${role}">example</label>-->
+<!--    </div>-->
+<!--    <input type="submit" value="Go" />-->
+<!--</form>-->
+
+
+</body>
+</html>
+
+<!--<!DOCTYPE html>-->
+<!--<html lang="en" xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Edit user</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<form th:method="PATCH" th:action="@{/edit/user/{id}(id = ${user.getId()})}" th:object="${user}">-->
+<!--    <label for="username">Edit login: </label>-->
+<!--    <input type="text" th:field="*{username}" id="username" th:value="*{username}"/><br/>-->
+<!--    <label for="password">Edit password: </label>-->
+<!--    <input type="text" th:field="*{password}" id="password"><br/><br/>-->
+
+<!--&lt;!&ndash;    <input type="text" th:field="*{roles}" id="roll" th:value="*{roles}"><br/>&ndash;&gt;-->
+
+<!--&lt;!&ndash;    <div th:each="role : ${user.getRoles()}" th:field="*{roles}">&ndash;&gt;-->
+<!--&lt;!&ndash;        <input type="text"  id="roll" th:value="${role.getRole()}"><br/>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+
+<!--    <input type="submit" value="Save"/>-->
+<!--</form>-->
+<!--<br/><br/><a th:href="@{/edit/roles/{id}(id = ${user.getId()})}">Change user roles.</a>-->
+<!--</body>-->
+<!--</html>-->

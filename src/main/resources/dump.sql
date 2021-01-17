@@ -34,8 +34,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `username`, `password`)
 VALUES
-(1,'admin','admin'),
-(2,'user','user');
+(1,'admin','$2a$10$xuqcvgAaTCHIcS9bXwbH0eE2HcQ6Mpywp83Uq9ZnNgRxkJZRrP6sy'),
+(2,'user','$2a$10$3iHwjMIUN6v6kXb7BLndP.xZ4qVulx3Nkkxkq5Qo3renHVifTc6fa');
 
 # Дамп таблицы users_roles
 # ------------------------------------------------------------
@@ -44,7 +44,7 @@ DROP TABLE IF EXISTS `users_roles`;
 
 CREATE TABLE `users_roles` (
                                `user_id` bigint(20) unsigned DEFAULT NULL,
-                               `role_id` bigint(20) unsigned DEFAULT NULL,
+                               `role_id` bigint(20) unsigned DEFAULT 2,
                                KEY `hasuser` (`user_id`),
                                KEY `hasrole` (`role_id`),
                                CONSTRAINT `hasrole` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -56,4 +56,6 @@ insert into users_roles
 values
 (1, 1),
 (1, 2),
-(2, 2);
+(2, 2),
+(3, 2),
+(4, 2);

@@ -9,18 +9,19 @@
 
 <div th:each="role : ${roles}">
     <div th:switch="${role}">
-        <a th:case="'ROLE_ADMIN'" href="/admin">ADMIN</a><br/>
-        <p th:case="'ROLE_USER'">
-            <a href="/logout">LOGOUT</a><br/>
-            <a th:href="@{/user/{name}(name = ${username})}" th:text="${username}">USER</a><br/>
+        <a th:case="'ROLE_ADMIN'" href="/admin">.:Admin panel:.</a><br/>
+<!--        <p th:case="'ROLE_USER'">-->
+        <p th:case="'ROLE_USER'" >Username:
+            <a th:href="@{/user/{name}(name = ${username})}" th:text="${username}">USER</a>
         </p>
+        <br/>
     </div>
 </div>
 
-<a th:if="!${#request.userPrincipal}" href="/login">LOGIN</a><br/>
-<a th:if="!${#request.userPrincipal}" href="/logincustom">LOGIN-CUSTOM</a>
+<br/><a th:if="!${#request.userPrincipal}" href="/logincustom">LOGIN</a>
+<br/><div th:if="${#request.userPrincipal}" th:insert="~{basement::logout}">LOGOUT</div>
 
-
+<br/><br/><br/>
 <div class="row" th:if="${#request.isUserInRole('ADMIN')}">
     <p>This will only be displayed if authenticated user has role 'ADMIN'</p>
 </div>

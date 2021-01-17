@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>edit roles</title>
+</head>
+<body>
+
+<form th:method="PATCH" th:action="@{/edit/roles/{id}(id = ${user.getId()})}" th:object="${preparedRoles}" >
+
+    <label for="username">Edit login: </label>
+    <input type="text" th:field="*{username}" id="username" th:value="*{username}"/><br/>
+
+    <label for="password">Edit password: </label>
+    <input type="password" th:field="*{password}" id="password" value="pass"><br/><br/>
+
+    <div th:each="roll : *{getAllRoles()}">
+        <input type="checkbox" th:field="*{actualRoles}" th:value="${roll}" /><label th:text="${roll}">example</label>
+    </div>
+    <input type="submit" value="Go" />
+</form>
+
+
+<!--<form th:method="PATCH" th:action="@{/edit/roles/{id}(id = ${user.getId()})}" th:object="${preparedRoles}" >-->
+<!--    <div th:each="role : ${allRoles}">-->
+<!--        <input type="checkbox" th:field="*{actualRoles}" th:value="${role}" /><label th:text="${role}">example</label>-->
+<!--    </div>-->
+<!--    <input type="submit" value="Go" />-->
+<!--</form>-->
+
+
+</body>
+</html>

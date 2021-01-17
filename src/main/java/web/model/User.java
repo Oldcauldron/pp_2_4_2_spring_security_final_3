@@ -5,7 +5,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 // Для того, чтобы в дальнейшим использовать класс User в Spring Security, он должен реализовывать интерфейс UserDetails.
@@ -14,12 +16,17 @@ import java.util.Set;
 @Table(name = "users")
 public class User implements UserDetails {
 
+//    public static boolean admin = false;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "username", unique = true)
+    @NotEmpty(message = "Name should not be empty!")
     private String username; // уникальное значение
+
+    @NotEmpty(message = "Password should not be empty!")
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -96,5 +103,7 @@ public class User implements UserDetails {
     public void setRoles(Set<Role> roles) {
         this.roles = roles;
     }
+
+
 }
 
